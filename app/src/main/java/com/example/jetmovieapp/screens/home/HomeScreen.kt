@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.jetmovieapp.navigation.MovieScreens
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -50,8 +51,8 @@ fun MainContent(
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn {
             items(items = movieList) {
-                MovieRow(title = it) { movieTitle ->
-                    Log.d("Row clicked", movieTitle)
+                MovieRow(title = it) {
+                    navController.navigate(route = MovieScreens.DetailsScreen.name)
                 }
             }
         }
