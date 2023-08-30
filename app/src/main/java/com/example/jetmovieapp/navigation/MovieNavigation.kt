@@ -20,10 +20,10 @@ fun MovieNavigation() {
             HomeScreen(navController = navController)
         }
         composable(
-            MovieScreens.DetailsScreen.name + "/{title}",
-            arguments = listOf(navArgument(name = "title") { type = NavType.StringType })
+            MovieScreens.DetailsScreen.name + "/{id}",
+            arguments = listOf(navArgument(name = "id") { type = NavType.StringType })
         ) {
-            DetailsScreen(navController = navController, it.arguments?.getString("title"))
+            DetailsScreen(navController = navController, it.arguments?.getString("id"))
         }
     }
 }
