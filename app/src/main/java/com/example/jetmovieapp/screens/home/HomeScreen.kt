@@ -1,6 +1,5 @@
 package com.example.jetmovieapp.screens.home
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -51,8 +50,8 @@ fun MainContent(
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn {
             items(items = movieList) {
-                MovieRow(title = it) {
-                    navController.navigate(route = MovieScreens.DetailsScreen.name)
+                MovieRow(title = it) { title ->
+                    navController.navigate(route = MovieScreens.DetailsScreen.name + "/$title")
                 }
             }
         }
