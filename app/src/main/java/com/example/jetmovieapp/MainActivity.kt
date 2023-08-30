@@ -1,8 +1,10 @@
 package com.example.jetmovieapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -62,16 +64,22 @@ fun MainContent(movieList: List<String> = listOf("Avatar", "300", "Harry Potter"
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn {
             items(items = movieList) {
-                MovieRow(title = it)
+                MovieRow(title = it) { movieTitle ->
+                    Log.d("Row clicked", movieTitle)
+                }
             }
         }
     }
 }
 
 @Composable
-fun MovieRow(title: String) {
+fun MovieRow(title: String, onItemClick: (String) -> Unit) {
     Card(
-        modifier = Modifier.padding(4.dp).fillMaxWidth().height(130.dp),
+        modifier = Modifier
+            .padding(4.dp)
+            .fillMaxWidth()
+            .height(130.dp)
+            .clickable { onItemClick(title) },
         shape = RoundedCornerShape(16.dp),
         elevation = 6.dp
     ) {
