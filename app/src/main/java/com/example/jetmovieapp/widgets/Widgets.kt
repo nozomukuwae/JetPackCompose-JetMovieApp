@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
@@ -132,6 +134,28 @@ fun MovieRow(movie: Movie = getMovies()[0], onItemClick: (String) -> Unit = {}) 
                         expanded = expanded.not()
                     },
                     tint = Color.DarkGray
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun HorizontalScrollableImageList(movie: Movie) {
+    LazyRow {
+        items(items = movie.images) {
+            Card(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .size(240.dp),
+                elevation = 5.dp
+            ) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(it)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "movie poster"
                 )
             }
         }

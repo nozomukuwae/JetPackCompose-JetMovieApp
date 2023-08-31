@@ -6,9 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -23,14 +24,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.jetmovieapp.model.getMovie
+import com.example.jetmovieapp.widgets.HorizontalScrollableImageList
+import com.example.jetmovieapp.widgets.MovieRow
 
 @Composable
-fun DetailsScreen(navController: NavController, title: String?) {
-    DetailsScreenContent(navController = navController, title = title)
+fun DetailsScreen(navController: NavController, id: String?) {
+    DetailsScreenContent(navController = navController, id = id)
 }
 
 @Composable
-fun DetailsScreenContent(navController: NavController = rememberNavController(), title: String?) {
+fun DetailsScreenContent(navController: NavController = rememberNavController(), id: String?) {
+    val movie = getMovie(id = id)
+
     Scaffold(topBar = {
         TopAppBar(
             backgroundColor = Color.Magenta,
@@ -55,9 +61,15 @@ fun DetailsScreenContent(navController: NavController = rememberNavController(),
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Top
             ) {
-                Text(text = title.toString(), style = MaterialTheme.typography.h5)
+                if (movie != null) {
+                    MovieRow(movie = movie)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Divider()
+                    Text(text = "Images")
+                    HorizontalScrollableImageList(movie)
+                }
             }
         }
     }
@@ -66,5 +78,5 @@ fun DetailsScreenContent(navController: NavController = rememberNavController(),
 @Preview(showBackground = true)
 @Composable
 fun DetailsScreenPreview() {
-    DetailsScreenContent(title = "Avatar")
+    DetailsScreenContent(id = "tt0499549")
 }

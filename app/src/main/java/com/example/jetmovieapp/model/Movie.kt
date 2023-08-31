@@ -13,6 +13,10 @@ data class Movie(
     val rating: String
 )
 
+fun getMovie(id: String?): Movie? {
+    return getMovies().firstOrNull { it.id == id }
+}
+
 fun getMovies(): List<Movie> {
     return listOf(
         Movie(
